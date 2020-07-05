@@ -4,7 +4,7 @@ String html_1 = R"=====(
 <!DOCTYPE html>
 <html>
  <head>
- <META HTTP-EQUIV="refresh" CONTENT="5">
+ <META HTTP-EQUIV="refresh" CONTENT="1">
  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
  <meta charset='utf-8'>
  <style>
@@ -20,10 +20,8 @@ String html_1 = R"=====(
  <div id='main'>
   <h2>Counter</h2>
 )=====";
- 
-String html_2 = "";
- 
-String html_4 = R"=====(
+  
+String html_2 = R"=====(
   </div>
  </body>
 </html>
@@ -45,7 +43,6 @@ void setup(){
     Serial.begin(115200);
     Serial.println();
     Serial.println("Serial started at 115200");
-    Serial.println("ESP8266_LED_CONTROL_AJAX_01");
     Serial.println();
  
     // Connecting to a WiFi network
@@ -72,23 +69,17 @@ void setup(){
 
 void loop() 
 {
-    // Check if a client has connected
     WiFiClient client = server.available();
-    //if (!client)  {  return;  }
-
-    Serial.println("eeee");
 
     count = count + 1;
  
     client.flush();
     client.print( header );
     client.print( html_1 );    
-    client.print( html_2 );
     client.print("<p> " + String(count) + " </p>");
-    client.print( html_4);
+    client.print( html_2);
  
     delay(5);
-  // The client will actually be disconnected when the function returns and 'client' object is detroyed
  
 }
 
