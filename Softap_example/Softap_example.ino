@@ -18,19 +18,28 @@ void setup() {
   WiFi.softAP(ssid, password);
   WiFi.softAPConfig(local_ip, gateway, subnet);
   delay(100);
-
+  
+  server.on("/", handle_OnConnect);
   server.begin();
   
   Serial.println("HTTP server started");
+  
 }
+
 void loop() {
   server.handleClient();
-  server.send(200, "text/html",SendHTML("Nut Machine Broke"));
+}
+
+void handle_OnConnect() 
+{
+  server.send(200, "text/html", SendHTML("Nut Machine Broke")); 
 }
 
 String SendHTML(String Value){
   String ptr = "<!DOCTYPE html> <html>\n";
-  ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr +="<head>";
+  ptr +="<META HTTP-EQUIV='refresh' CONTENT='1'>";
+  ptr +="<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
   ptr +="<title>Counter</title>\n";
   ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
   ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;} h3 {color: #444444;margin-bottom: 50px;}\n";
@@ -38,7 +47,7 @@ String SendHTML(String Value){
   ptr +="</style>\n";
   ptr +="</head>\n";
   ptr +="<body>\n";
-  ptr +="<h1>ESP8266 Web Server</h1>\n";
+  ptr +="<h1>Value Display</h1>\n";
   ptr +="<h3>Using Access Point(AP) Mode</h3>\n";
   ptr +="<p>" + Value + "</p>";
   ptr +="</body>\n";
