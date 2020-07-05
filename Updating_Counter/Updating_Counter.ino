@@ -4,6 +4,7 @@ String html_1 = R"=====(
 <!DOCTYPE html>
 <html>
  <head>
+ <META HTTP-EQUIV="refresh" CONTENT="5">
  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
  <meta charset='utf-8'>
  <style>
@@ -73,7 +74,9 @@ void loop()
 {
     // Check if a client has connected
     WiFiClient client = server.available();
-    if (!client)  {  return;  }
+    //if (!client)  {  return;  }
+
+    Serial.println("eeee");
 
     count = count + 1;
  
