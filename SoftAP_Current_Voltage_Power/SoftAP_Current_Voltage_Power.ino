@@ -36,9 +36,13 @@ void handle_OnConnect()
   server.send(200, "text/html", SendHTML(String(SensorValue))); 
 }
 
-int Get_Val(){
-  int Val = analogRead(A0);
-  return Val;
+float Get_Voltage(){
+  float Voltage = analogRead(A0);
+  if (Voltage < 10){
+    Voltage = 0;
+  }
+  Voltage /= 100;
+  return Voltage;
 }
 
 String SendHTML(String Value){
@@ -53,9 +57,9 @@ String SendHTML(String Value){
   ptr +="</style>\n";
   ptr +="</head>\n";
   ptr +="<body>\n";
-  ptr +="<h1>Voltage Display</h1>\n";
+  ptr +="<h1>Power Monitor</h1>\n";
   ptr +="<h3>Using Access Point(AP) Mode</h3>\n";
-  ptr +="<p>" + String(Get_Val()) + "V</p>";
+  ptr +="<p> Voltage:" + String(Get_Voltage()) + "V</p>";
   ptr +="</body>\n";
   ptr +="</html>\n";
   return ptr;
